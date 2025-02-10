@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('file_photos')->nullable();
             $table->enum('status', ['NeedReview', 'Revision', 'Accepted'])->default('NeedReview');
             $table->date('date_submitted')->nullable();
-            $table->foreignId('id_project')->constrained('projects')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('id_user')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_project')->constrained('projects', 'id_project')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_user')->constrained('users', 'id_user')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

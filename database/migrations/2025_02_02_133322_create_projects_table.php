@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('file_workorder')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->foreignId('id_client')->constrained('clients')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('id_user')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_client')->constrained('clients', 'id_client')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_user')->constrained('users', 'id_user')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
