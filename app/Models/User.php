@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,10 +18,12 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    protected $primaryKey = 'id_user';
     protected $fillable = [
-        'name',
+        'fullname',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -44,5 +47,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /** 
+     * Relationships with other models as follows: 
+     */
+
+    // User has many projects
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class, 'id_user');
+    }
+
+    // User has many documentations
+    public function documentations(): HasMany
+    {
+        return $this->hasMany(Documentation::class, 'id_user');
     }
 }
