@@ -18,12 +18,12 @@ Route::get('/', function () {
 Route::resource('users', UserController::class);
 Route::resource('clients', ClientController::class);
 Route::resource('projects', ProjectController::class);
-
+Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
 
 // User Management Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Password Reset Routes
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
@@ -65,7 +65,3 @@ Route::middleware(['auth'])->group(function () {
         abort(403, 'Unauthorized access');
     })->name('dashboard');
 });
-
-
-
-
