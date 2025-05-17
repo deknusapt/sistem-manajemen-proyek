@@ -11,47 +11,62 @@
 <body class="flex">
     <!-- Sidebar -->
     <aside class="w-64 bg-white border-r h-screen flex flex-col justify-between">
-        <div>
-            <div class="p-4 font-bold text-xl flex items-center gap-2">
-                <a href="/dashboard" class="flex items-center gap-2">
-                    <img src="../favicon.ico" alt="Logo" class="w-8 h-8"> PMS Magnum Solusion
-                </a>
-            </div>
-            <nav class="mt-4 flex flex-col text-left text-gray-700">
+        <!-- Bagian atas sidebar -->
+        <div class="overflow-y-auto py-4 px-3">
+            <a href="/dashboard" class="flex items-center pl-2.5 mb-5">
+                <img src="../favicon.ico" class="h-8 mr-3" alt="Logo">
+                <span class="self-center text-xl font-semibold whitespace-normal break-words">PMS Magnum Solusion</span>
+            </a>
+            <ul class="space-y-2">
                 @if (Auth::user()->role === 'ProjectManager')
-                    <a href="/projects" class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-                        <i class="fas fa-tasks w-5 h-5"></i> <!-- Ikon untuk Projects -->
-                        Projects
-                    </a>
-                    <a href="/materials" class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-                        <i class="fas fa-box w-5 h-5"></i> <!-- Ikon untuk Materials -->
-                        Materials
-                    </a>
-                    <a href="/clients" class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-                        <i class="fas fa-user-tie w-5 h-5"></i> <!-- Ikon untuk Clients -->
-                        Clients
-                    </a>
-                    <a href="/users" class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-                        <i class="fas fa-users w-5 h-5"></i> <!-- Ikon untuk Users -->
-                        Users
-                    </a>
-                    <a href="/reports" class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-                        <i class="fas fa-chart-line w-5 h-5"></i> <!-- Ikon untuk Reports -->
-                        Reports
-                    </a>
+                    <li>
+                        <a href="/projects" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-tasks w-5 h-5"></i>
+                            <span class="ml-3">Projects</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/materials" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-box w-5 h-5"></i>
+                            <span class="ml-3">Materials</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/clients" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-user-tie w-5 h-5"></i>
+                            <span class="ml-3">Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-users w-5 h-5"></i>
+                            <span class="ml-3">Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/reports" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-chart-line w-5 h-5"></i>
+                            <span class="ml-3">Reports</span>
+                        </a>
+                    </li>
                 @elseif (Auth::user()->role === 'Engineer')
-                    <a href="/projects" class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-                        <i class="fas fa-tasks w-5 h-5"></i> <!-- Ikon untuk Projects -->
-                        Projects
-                    </a>
-                    <a href="/materials" class="px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-                        <i class="fas fa-box w-5 h-5"></i> <!-- Ikon untuk Materials -->
-                        Materials
-                    </a>
+                    <li>
+                        <a href="/projects" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-tasks w-5 h-5"></i>
+                            <span class="ml-3">Projects</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/materials" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-box w-5 h-5"></i>
+                            <span class="ml-3">Materials</span>
+                        </a>
+                    </li>
                 @endif
-            </nav>
+            </ul>
         </div>
 
+        <!-- Bagian bawah sidebar -->
         <div class="p-4 border-t">
             <p class="text-sm mb-2">Logged as: <strong>{{ Auth::user()->fullname }}</strong></p>
             <form method="POST" action="{{ route('logout') }}">
