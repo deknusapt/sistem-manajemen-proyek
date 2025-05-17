@@ -14,11 +14,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        // Get all projects
-        $projects = Project::with('user', 'client')->get();
+        $clients = Client::all();
+        $engineers = User::where('role', 'Engineer')->get(); // Ambil user dengan role engineer
+        $projects = Project::with('client')->paginate(10);
 
-        // Return the view to show all projects
-        return view('projects.index', compact('projects'));
+        return view('projects.index', compact('clients', 'engineers', 'projects'));
     }
 
     /**
@@ -38,23 +38,35 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'project_name' => 'required',
+        // dd($request->all());
+
+        // Validasi input
+        $data = $request->validate([
+            'project_name' => 'required|string|max:255',
             'cost' => 'required|numeric',
-            'complexity' => 'required|in:Low,Medium,High',
-            'status' => 'required|in:notstarted,onprogress,pending,canceled',
-            'description' => 'required',
-            'file_workorder' => 'required',
+            'complexity' => 'required|in:low,medium,high',
+            'status' => 'required|in:notstarted,onprogress,pending,canceled,completed',
+            'description' => 'required|string',
+            'file_workorder' => 'required|file|mimes:pdf,doc,docx|max:2048', // File harus berupa PDF atau DOC
             'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'id_client' => 'required|exists:clients,id_client',
-            'id_user' => 'required|exists:users,id_user'
+            'id_user' => 'required|exists:users,id_user', // Validasi untuk PIC
         ]);
 
-        // Create a new project
-        Project::create($request->all());
+        // Simpan file workorder
+        $filePath = $request->file('file_workorder')->store('workorders', 'public');
+        $data['file_workorder'] = $filePath;
 
+        // Simpan data ke database
+        $project = Project::create($data);
+        // dd($project);
+
+        if (!$project) {
+            return redirect()->back()->with('error', 'Failed to save project.');
+        }
+
+        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('projects.index')->with('success', 'Project added successfully.');
     }
 
@@ -86,16 +98,16 @@ class ProjectController extends Controller
     {
         // Validate the request
         $request->validate([
-            'project_name' => 'required',
+            'project_name' => 'required|string|max:255',
             'cost' => 'required|numeric',
-            'complexity' => 'required|in:Low,Medium,High',
-            'status' => 'required|in:notstarted,onprogress,pending,canceled',
-            'description' => 'required',
-            'file_workorder' => 'required',
+            'complexity' => 'required|in:low,medium,high',
+            'status' => 'required|in:notstarted,onprogress,pending,canceled,completed',
+            'description' => 'required|string',
+            'file_workorder' => 'required|file|mimes:pdf,doc,docx|max:2048',
             'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'id_client' => 'required|exists:clients,id_client',
-            'id_user' => 'required|exists:users,id_user'
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'id_client' => 'required|exists:clients,id',
+            'id_user' => 'required|exists:users,id', // Validasi untuk PIC
         ]);
 
         // Update the project
