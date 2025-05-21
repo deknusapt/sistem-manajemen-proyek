@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\DocumentationController;
 
 // Web Routes
 Route::get('/', function () {
@@ -64,4 +65,9 @@ Route::middleware(['auth'])->group(function () {
         }
         abort(403, 'Unauthorized access');
     })->name('dashboard');
+
+    // Route untuk menghapus proyek
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+    Route::get('/projects/{project}/documentations', [DocumentationController::class, 'index'])->name('projects.documentations');
 });
