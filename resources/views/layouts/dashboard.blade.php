@@ -14,7 +14,7 @@
         <!-- Bagian atas sidebar -->
         <div class="overflow-y-auto py-4 px-3">
             <a href="/dashboard" class="flex items-center pl-2.5 mb-5">
-                <img src="../favicon.ico" class="h-8 mr-3" alt="Logo">
+                <img src="{{ asset('magnum-logo.png') }}" class="h-8 mr-3" alt="Logo">
                 <span class="self-center text-xl font-semibold whitespace-normal break-words">PMS Magnum Solusion</span>
             </a>
             <ul class="space-y-2">
