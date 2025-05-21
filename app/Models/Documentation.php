@@ -12,14 +12,15 @@ class Documentation extends Model
 
     protected $primaryKey = 'id_doc';
     protected $fillable = [
-        'project_name',
+        'doc_name',
         'description',
         'file_photos',
         'status',
-        'start_date',
-        'end_date',
+        'date_submitted',
         'id_project',
-        'id_user'
+        'id_user',
+        'created_at',
+        'updated_at'
     ];
 
     // Documentation belongs to project
