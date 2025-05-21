@@ -50,7 +50,7 @@ class ProjectController extends Controller
             'file_workorder' => 'required|file|mimes:pdf,doc,docx|max:2048', // File harus berupa PDF atau DOC
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'id_client' => 'required|exists:clients,id_client',
+            'id_client' => 'required|exists:clients,id_client', // Perbaiki kolom di sini
             'id_user' => 'required|exists:users,id_user', // Validasi untuk PIC
         ]);
 
@@ -98,16 +98,15 @@ class ProjectController extends Controller
     {
         // Validate the request
         $request->validate([
+            'id_client' => 'required|exists:clients,id_client', // Perbaiki kolom di sini
+            'id_user' => 'required|exists:users,id_user', // Validasi untuk PIC
             'project_name' => 'required|string|max:255',
             'cost' => 'required|numeric',
             'complexity' => 'required|in:low,medium,high',
             'status' => 'required|in:notstarted,onprogress,pending,canceled,completed',
             'description' => 'required|string',
-            'file_workorder' => 'required|file|mimes:pdf,doc,docx|max:2048',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'id_client' => 'required|exists:clients,id',
-            'id_user' => 'required|exists:users,id', // Validasi untuk PIC
         ]);
 
         // Update the project

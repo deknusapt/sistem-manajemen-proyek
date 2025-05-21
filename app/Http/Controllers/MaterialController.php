@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Material;
-use App\Models\User;
 
 class MaterialController extends Controller
 {
@@ -14,7 +13,7 @@ class MaterialController extends Controller
     public function index()
     {
         // Gunakan paginate() untuk pagination
-        $materials = Material::with('client')->paginate(10); // 10 item per halaman
+        $materials = Material::paginate(10); // 10 item per halaman
         return view('materials.index', compact('materials'));
     }
 
@@ -23,11 +22,7 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        // Get all clients and users
-        $clients = Client::all();
-        $users = User::whereIn('role', ['ProjectManager', 'Engineer'])->get();
-
-        return view('materials.create', compact('clients', 'users'));
+        return view('materials.create');
     }
 
     /**
@@ -37,13 +32,11 @@ class MaterialController extends Controller
     {
         // Validate the request
         $request->validate([
-            'material_name' => 'required',
-            'cost' => 'required|numeric',
-            'quantity' => 'required|integer',
-            'description' => 'required',
-            'file_workorder' => 'required',
-            'id_client' => 'required|exists:clients,id_client',
-            'id_user' => 'required|exists:users,id_user'
+            'material_name' => 'required|string|max:255',
+            'brandname' => 'required|string|max:255',
+            'serial_number' => 'required|string|max:255|unique:materials,serial_number',
+            'quantity' => 'required|integer|min:0',
+            'availability' => 'required|in:Available,OutofStock',
         ]);
 
         // Create a new material
@@ -53,13 +46,11 @@ class MaterialController extends Controller
     }
 
     /**
-     * Display all materials.
+     * Display the specified resource.
      */
     public function show(Material $material)
     {
-        // Get all materials
-        // $materials = Material::with('client')->paginate(10); // 10 item per halaman
-        return view('materials.show', compact('materials'));
+        return view('materials.show', compact('material'));
     }
 
     /**
@@ -67,11 +58,7 @@ class MaterialController extends Controller
      */
     public function edit(Material $material)
     {
-        // Get all clients and users
-        $clients = Client::all();
-        $users = User::whereIn('role', ['ProjectManager', 'Engineer'])->get();
-
-        return view('materials.edit', compact('material', 'clients', 'users'));
+        return view('materials.edit', compact('material'));
     }
 
     /**
@@ -81,13 +68,11 @@ class MaterialController extends Controller
     {
         // Validate the request
         $request->validate([
-            'material_name' => 'required',
-            'cost' => 'required|numeric',
-            'quantity' => 'required|integer',
-            'description' => 'required',
-            'file_workorder' => 'required',
-            'id_client' => 'required|exists:clients,id_client',
-            'id_user' => 'required|exists:users,id_user'
+            'material_name' => 'required|string|max:255',
+            'brandname' => 'required|string|max:255',
+            'serial_number' => 'required|string|max:255|unique:materials,serial_number,' . $material->id_material,
+            'quantity' => 'required|integer|min:0',
+            'availability' => 'required|in:Available,OutofStock',
         ]);
 
         // Update the material

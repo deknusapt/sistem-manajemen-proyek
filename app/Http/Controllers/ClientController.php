@@ -12,8 +12,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        // Get all clients
-        $clients = Client::all();
+        $clients = Client::paginate(10); // 10 item per halaman
         return view('clients.index', compact('clients'));
     }
 

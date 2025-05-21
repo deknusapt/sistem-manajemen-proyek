@@ -10,11 +10,13 @@ class DocumentationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($projectId)
     {
-        // Get all documentations
-        $documentations = Documentation::all();
-        return view('documentations.index', compact('documentations'));
+        // Get all documentations related to a specific project
+        $documentations = Documentation::where('id_project', $projectId)->get();
+        $project = $documentations->first()?->project; // Get related project (if any documentation exists)
+
+        return view('documentations.index', compact('documentations', 'project'));
     }
 
     /**
