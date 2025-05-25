@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Material extends Model
 {
-    //
     use HasFactory;
 
-    protected $primaryKey = 'id_material';
+    protected $primaryKey = 'id_material'; // Primary key yang digunakan
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
         'material_name',
         'brandname',
