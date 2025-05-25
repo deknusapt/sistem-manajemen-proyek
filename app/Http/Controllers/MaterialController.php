@@ -66,16 +66,16 @@ class MaterialController extends Controller
      */
     public function update(Request $request, Material $material)
     {
-        // Validate the request
+        // Validasi data
         $request->validate([
             'material_name' => 'required|string|max:255',
             'brandname' => 'required|string|max:255',
-            'serial_number' => 'required|string|max:255|unique:materials,serial_number,' . $material->id_material,
+            'serial_number' => 'required|string|max:255|unique:materials,serial_number,' . $material->id_material . ',id_material',
             'quantity' => 'required|integer|min:0',
             'availability' => 'required|in:Available,OutofStock',
         ]);
 
-        // Update the material
+        // Update material
         $material->update($request->all());
 
         return redirect()->route('materials.index')->with('success', 'Material updated successfully.');
