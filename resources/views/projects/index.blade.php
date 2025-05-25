@@ -30,7 +30,7 @@
                             @csrf
                             <div class="mb-4">
                                 <label for="project_name" class="block text-sm font-medium text-gray-700">Project Name</label>
-                                <input type="text" name="project_name" id="project_name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                                <input type="text" name="project_name" id="project_name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter project name" required>
                             </div>
                             <div class="mb-4">
                                 <label for="id_client" class="block text-sm font-medium text-gray-700">Client</label>
