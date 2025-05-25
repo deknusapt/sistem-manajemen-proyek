@@ -38,8 +38,6 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         // Validasi input
         $data = $request->validate([
             'project_name' => 'required|string|max:255',
