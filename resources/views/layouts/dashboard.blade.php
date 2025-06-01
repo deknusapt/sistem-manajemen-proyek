@@ -10,7 +10,7 @@
 </head>
 <body class="flex">
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r h-screen flex flex-col justify-between">
+    <aside class="w-64 fixed left-0 top-0 bottom-0 w-30 z-50 bg-white border-r h-screen flex flex-col justify-between">
         <!-- Bagian atas sidebar -->
         <div class="overflow-y-auto py-4 px-3">
             <a href="/dashboard" class="flex items-center pl-2.5 mb-5">
@@ -80,7 +80,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-6 ml-64 bg-gray-100 min-h-screen">
         @yield('content')
     </main>
 </body>
