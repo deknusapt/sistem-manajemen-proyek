@@ -289,7 +289,37 @@
         <nav class="flex justify-between items-center pt-4" aria-label="Table navigation">
             <span class="text-sm font-normal text-gray-500">Showing {{ $projects->firstItem() }}-{{ $projects->lastItem() }} of {{ $projects->total() }}</span>
             <ul class="inline-flex items-center -space-x-px">
-                {{ $projects->links('pagination::bootstrap-4') }}
+                @if ($projects->onFirstPage())
+                    <li>
+                        <span class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-gray-200 border border-gray-300 rounded-l-lg cursor-not-allowed">Previous</span>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ $projects->previousPageUrl() }}" class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">Previous</a>
+                    </li>
+                @endif
+
+                @foreach ($projects->getUrlRange(1, $projects->lastPage()) as $page => $url)
+                    @if ($page == $projects->currentPage())
+                        <li>
+                            <span class="px-3 py-2 leading-tight text-white bg-blue-600 border border-gray-300">{{ $page }}</span>
+                        </li>
+                    @else
+                        <li>
+                            <a href="{{ $url }}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">{{ $page }}</a>
+                        </li>
+                    @endif
+                @endforeach
+
+                @if ($projects->hasMorePages())
+                    <li>
+                        <a href="{{ $projects->nextPageUrl() }}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">Next</a>
+                    </li>
+                @else
+                    <li>
+                        <span class="px-3 py-2 leading-tight text-gray-500 bg-gray-200 border border-gray-300 rounded-r-lg cursor-not-allowed">Next</span>
+                    </li>
+                @endif
             </ul>
         </nav>
     </div>
