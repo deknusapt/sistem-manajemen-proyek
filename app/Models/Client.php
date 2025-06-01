@@ -12,6 +12,9 @@ class Client extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_client';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    
     protected $fillable = [
         'client_fullname',
         'company',

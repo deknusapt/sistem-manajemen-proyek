@@ -75,7 +75,7 @@ class ClientController extends Controller
             'position' => 'required',
             'address' => 'required',
             'phone_number' => 'required|numeric',
-            'email' => 'required|email|unique:clients,email,' . $client->id_client
+            'email' => 'required|email|unique:clients,email,' . $client->id_client . ',id_client'
         ]);
 
         // Update the client
