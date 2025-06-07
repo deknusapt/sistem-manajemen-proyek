@@ -78,7 +78,7 @@ class UserController extends Controller
         // Validate the request
         $request->validate([
             'fullname' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id_user . 'id_user',
+            'email' => 'required|email|unique:users,email,' . $user->id_user . ',id_user',
             'role' => 'required|in:ProjectManager,Engineer'
         ]);
 
