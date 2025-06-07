@@ -67,4 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const createUserForm = document.querySelector('#createUserModal form');
+
+    createUserForm.addEventListener('submit', (event) => {
+        const passwordInput = createUserForm.querySelector('#password');
+        if (passwordInput.value.length < 6) {
+            event.preventDefault(); // Mencegah pengiriman form
+            alert('Password must be at least 6 characters.');
+        }
+    });
 });
