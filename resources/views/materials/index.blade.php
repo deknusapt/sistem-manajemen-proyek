@@ -4,10 +4,40 @@
     <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Materials</h1>
 
-        <div class="mb-4">
+        <div class="mb-8">
             <a href="#" data-modal-target="createMaterialModal" data-modal-toggle="createMaterialModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
                 New Material
             </a>
+        </div>
+
+        <!-- Filter dan Pencarian -->
+        <div class="mb-4 flex justify-between">
+            <form method="GET" action="{{ route('materials.index') }}" class="flex gap-4">
+                <!-- Filter Availability -->
+                <div>
+                    <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
+                    <select name="availability" id="availability" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="">All</option>
+                        <option value="Available" {{ request('availability') == 'Available' ? 'selected' : '' }}>Available</option>
+                        <option value="OutofStock" {{ request('availability') == 'OutofStock' ? 'selected' : '' }}>Out of Stock</option>
+                    </select>
+                </div>
+
+                <!-- Tombol Submit -->
+                <div class="flex items-end">
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
+                        Filter
+                    </button>
+                </div>
+            </form>
+
+            <!-- Pencarian -->
+            <form method="GET" action="{{ route('materials.index') }}" class="flex items-end">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search materials..." class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                <button type="submit" class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
+                    Search
+                </button>
+            </form>
         </div>
 
         <div class="relative overflow-x-auto sm:rounded-lg">

@@ -117,7 +117,7 @@
                     <!-- Modal body -->
                     <div class="p-6">
                         <p class="text-sm text-gray-500">
-                            Are you sure you want to delete this project? This action cannot be undone.
+                            Are you sure you want to delete <strong>this project?</strong> This action cannot be undone.
                         </p>
                     </div>
                     <!-- Modal footer -->
@@ -217,6 +217,50 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Filter dan Pencarian -->
+        <div class="mb-4 flex justify-between">
+            <form method="GET" action="{{ route('projects.index') }}" class="flex gap-4">
+                <!-- Filter Status -->
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select name="status" id="status" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="">All</option>
+                        <option value="notstarted" {{ request('status') == 'notstarted' ? 'selected' : '' }}>Not Started</option>
+                        <option value="onprogress" {{ request('status') == 'onprogress' ? 'selected' : '' }}>On Progress</option>
+                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="canceled" {{ request('status') == 'canceled' ? 'selected' : '' }}>Canceled</option>
+                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                    </select>
+                </div>
+
+                <!-- Filter Due Date -->
+                <div>
+                    <label for="due_date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                    <select name="due_date" id="due_date" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="">All</option>
+                        <option value="today" {{ request('due_date') == 'today' ? 'selected' : '' }}>This Day</option>
+                        <option value="this_week" {{ request('due_date') == 'this_week' ? 'selected' : '' }}>This Week</option>
+                        <option value="this_month" {{ request('due_date') == 'this_month' ? 'selected' : '' }}>This Month</option>
+                    </select>
+                </div>
+
+                <!-- Tombol Submit -->
+                <div class="flex items-end">
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
+                        Filter
+                    </button>
+                </div>
+            </form>
+
+            <!-- Pencarian -->
+            <form method="GET" action="{{ route('projects.index') }}" class="flex items-end">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search projects..." class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2"/>
+                <button type="submit" class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
+                    Search
+                </button>
+            </form>
         </div>
 
         <!-- Tabel Project -->
