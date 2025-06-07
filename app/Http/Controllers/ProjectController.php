@@ -12,11 +12,37 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $clients = Client::all();
-        $engineers = User::where('role', 'Engineer')->get(); // Ambil user dengan role engineer
-        $projects = Project::with('client')->paginate(10);
+        $engineers = User::where('role', 'Engineer')->get();
+
+        // Query dasar
+        $query = Project::with('client');
+
+        // Filter berdasarkan status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // Filter berdasarkan due date
+        if ($request->has('due_date') && $request->due_date != '') {
+            if ($request->due_date == 'today') {
+                $query->whereDate('end_date', now()->toDateString());
+            } elseif ($request->due_date == 'this_week') {
+                $query->whereBetween('end_date', [now()->startOfWeek(), now()->endOfWeek()]);
+            } elseif ($request->due_date == 'this_month') {
+                $query->whereMonth('end_date', now()->month)->whereYear('end_date', now()->year);
+            }
+        }
+
+        // Pencarian berdasarkan nama proyek
+        if ($request->has('search') && $request->search != '') {
+            $query->where('project_name', 'like', '%' . $request->search . '%');
+        }
+
+        // Ambil data dengan pagination
+        $projects = $query->paginate(10);
 
         return view('projects.index', compact('clients', 'engineers', 'projects'));
     }

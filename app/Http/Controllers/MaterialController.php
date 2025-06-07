@@ -10,10 +10,24 @@ class MaterialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Gunakan paginate() untuk pagination
-        $materials = Material::paginate(10); // 10 item per halaman
+        // Query dasar
+        $query = Material::query();
+
+        // Filter berdasarkan availability
+        if ($request->has('availability') && $request->availability != '') {
+            $query->where('availability', $request->availability);
+        }
+
+        // Pencarian berdasarkan nama material
+        if ($request->has('search') && $request->search != '') {
+            $query->where('material_name', 'like', '%' . $request->search . '%');
+        }
+
+        // Ambil data dengan pagination
+        $materials = $query->paginate(10);
+
         return view('materials.index', compact('materials'));
     }
 
