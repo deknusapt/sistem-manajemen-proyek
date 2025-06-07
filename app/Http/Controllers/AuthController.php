@@ -25,11 +25,11 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role === 'ProjectManager') {
-                return redirect()->intended('/dashboard/manager');
+                return redirect()->intended('/projects');
             } elseif (Auth::user()->role === 'Engineer') {
-                return redirect()->intended('/dashboard/engineer');
+                return redirect()->intended('/projects');
             }
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/projects');
         }
 
         return back()->withErrors([
