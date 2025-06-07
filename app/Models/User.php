@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -18,12 +17,15 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $primaryKey = 'id_user';
+    protected $primaryKey = 'id_user'; // Primary key yang digunakan
+    public $incrementing = true; // Jika primary key auto-increment
+    protected $keyType = 'int'; // Tipe data primary key
+
     protected $fillable = [
         'fullname',
         'email',
         'password',
-        'role'
+        'role',
     ];
 
     /**
