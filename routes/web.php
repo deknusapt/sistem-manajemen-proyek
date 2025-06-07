@@ -15,13 +15,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Authentication Routes
-Route::resource('users', UserController::class);
-Route::resource('clients', ClientController::class);
-Route::resource('projects', ProjectController::class);
-Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
-Route::resource('materials', MaterialController::class);
-
 // User Management Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -33,7 +26,13 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 
 // Middleware for Role-Based Access Control
 Route::middleware(['auth'])->group(function () {
+    // Authentication Routes
+    Route::resource('users', UserController::class);
+    Route::resource('clients', ClientController::class);
+    Route::resource('projects', ProjectController::class);
+    Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::resource('materials', MaterialController::class);
+
 
     // Rute untuk dashboard Project Manager
     Route::get('/dashboard/manager', function () {
