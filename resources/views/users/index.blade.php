@@ -89,7 +89,7 @@
     </div>
 
     <!-- Modal untuk form create user -->
-    <div id="createUserModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+    <div id="createUserModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
         <div class="relative w-full max-w-2xl max-h-full mx-auto">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
@@ -118,7 +118,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                            <input type="password" name="password" id="password" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter password" required>
+                            <input type="password" name="password" id="password" minlength="6" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter password" required>
                         </div>
                         <div class="mb-4">
                             <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
@@ -139,7 +139,7 @@
     </div>
 
     <!-- Modal untuk Edit User -->
-    <div id="editUserModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+    <div id="editUserModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
         <div class="relative w-full max-w-2xl max-h-full mx-auto">
             <div class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
@@ -184,7 +184,7 @@
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
-    <div id="deleteConfirmationModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+    <div id="deleteConfirmationModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
         <div class="relative w-full max-w-md max-h-full mx-auto">
             <div class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->

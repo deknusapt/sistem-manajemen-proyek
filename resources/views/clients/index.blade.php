@@ -95,7 +95,7 @@
     </div>
 
     <!-- Modal untuk form create client -->
-    <div id="createClientModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+    <div id="createClientModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
         <div class="relative w-full max-w-2xl max-h-full mx-auto">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
@@ -149,7 +149,7 @@
     </div>
 
     <!-- Modal untuk Edit Client -->
-    <div id="editClientModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+    <div id="editClientModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
         <div class="relative w-full max-w-2xl max-h-full mx-auto">
             <div class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
@@ -203,7 +203,7 @@
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
-    <div id="deleteConfirmationModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+    <div id="deleteConfirmationModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
         <div class="relative w-full max-w-md max-h-full mx-auto">
             <div class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
