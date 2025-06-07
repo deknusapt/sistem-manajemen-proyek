@@ -27,44 +27,19 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 // Middleware for Role-Based Access Control
 Route::middleware(['auth'])->group(function () {
     // Authentication Routes
-    Route::resource('users', UserController::class);
-    Route::resource('clients', ClientController::class);
-    Route::resource('projects', ProjectController::class);
+    Route::middleware(['auth', 'check.role:ProjectManager'])->group(function () {
+        Route::resource('materials', MaterialController::class);
+        Route::resource('clients', ClientController::class);
+        Route::resource('users', UserController::class);
+    });
+
+    Route::middleware(['auth', 'check.role:ProjectManager,Engineer'])->group(function () {
+        Route::resource('projects', ProjectController::class);
+        Route::resource('materials', MaterialController::class);
+    });
+
+    // Route untuk menampilkan daftar proyek
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
-    Route::resource('materials', MaterialController::class);
-
-
-    // Rute untuk dashboard Project Manager
-    Route::get('/dashboard/manager', function () {
-        $menu = [
-            ['label' => 'Projects', 'url' => '/projects', 'active' => 'projects*'],
-            ['label' => 'Materials', 'url' => '/materials', 'active' => 'materials*'],
-            ['label' => 'Clients', 'url' => '/clients', 'active' => 'clients*'],
-            ['label' => 'Users', 'url' => '/users', 'active' => 'users*'],
-            ['label' => 'Reports', 'url' => '/reports', 'active' => 'reports*'],
-        ];
-        return view('dashboard.manager', compact('menu'));
-    })->name('dashboard.manager');
-
-    // Rute untuk dashboard Engineer
-    Route::get('/dashboard/engineer', function () {
-        $menu = [
-            ['label' => 'Projects', 'url' => '/projects', 'active' => 'projects*'],
-            ['label' => 'Materials', 'url' => '/materials', 'active' => 'materials*'],
-        ];
-        return view('dashboard.engineer', compact('menu'));
-    })->name('dashboard.engineer');
-
-    // Rute default untuk dashboard
-    Route::get('/dashboard', function () {
-        $user = Auth::user();
-        if ($user->role === 'ProjectManager') {
-            return redirect()->route('dashboard.manager');
-        } elseif ($user->role === 'Engineer') {
-            return redirect()->route('dashboard.engineer');
-        }
-        abort(403, 'Unauthorized access');
-    })->name('dashboard');
 
     // Route untuk menghapus proyek
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
