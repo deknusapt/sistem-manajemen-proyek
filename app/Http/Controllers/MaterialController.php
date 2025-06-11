@@ -26,8 +26,12 @@ class MaterialController extends Controller
         }
 
         // Sorting berdasarkan nama atau quantity
-        if ($request->has('sort_by') && $request->has('order')) {
-            $query->orderBy($request->sort_by, $request->order);
+        if ($request->has('sort_by') && $request->sort_by != '') {
+            $order = $request->has('order') && in_array($request->order, ['asc', 'desc']) ? $request->order : 'asc';
+            $query->orderBy($request->sort_by, $order);
+        } else {
+            // Default sorting jika sort_by tidak diberikan
+            $query->orderBy('material_name', 'asc');
         }
 
         // Ambil data dengan pagination
