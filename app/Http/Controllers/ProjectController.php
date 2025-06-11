@@ -20,18 +20,18 @@ class ProjectController extends Controller
         // Query dasar
         $query = Project::with('client');
 
-        // Sorting berdasarkan nama proyek
-        if ($request->has('sort_by') && $request->sort_by == 'project_name') {
-            $order = $request->has('order') && $request->order == 'desc' ? 'desc' : 'asc';
-            $query->orderBy('project_name', $order);
-        }
+        // Sorting berdasarkan parameter
+        if ($request->has('sort_by')) {
+            $sortBy = $request->sort_by;
+            $order = $request->has('order') && in_array($request->order, ['asc', 'desc']) ? $request->order : 'asc';
 
-        // Sorting berdasarkan klien
-        if ($request->has('sort_by') && $request->sort_by == 'client_name') {
-            $order = $request->has('order') && $request->order == 'desc' ? 'desc' : 'asc';
-            $query->join('clients', 'projects.id_client', '=', 'clients.id_client')
-                  ->orderBy('clients.client_name', $order)
-                  ->select('projects.*');
+            if ($sortBy === 'project_name') {
+                $query->orderBy('project_name', $order);
+            } elseif ($sortBy === 'client_name') {
+                $query->join('clients', 'projects.id_client', '=', 'clients.id_client')
+                      ->orderBy('clients.client_fullname', $order)
+                      ->select('projects.*');
+            }
         }
 
         // Filter berdasarkan status
