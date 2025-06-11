@@ -10,9 +10,31 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::paginate(10); // 10 item per halaman
+        // Query dasar
+        $query = Client::query();
+
+        // Pencarian berdasarkan fullname
+        if ($request->has('search') && $request->search != '') {
+            $query->where('client_fullname', 'like', '%' . $request->search . '%');
+        }
+
+        // Sorting berdasarkan fullname
+        if ($request->has('sort_by') && $request->sort_by == 'fullname') {
+            $order = $request->has('order') && $request->order == 'desc' ? 'desc' : 'asc';
+            $query->orderBy('client_fullname', $order);
+        }
+
+        // Sorting berdasarkan company
+        if ($request->has('sort_by') && $request->sort_by == 'company') {
+            $order = $request->has('order') && $request->order == 'desc' ? 'desc' : 'asc';
+            $query->orderBy('company', $order);
+        }
+
+        // Ambil data dengan pagination
+        $clients = $query->paginate(10);
+
         return view('clients.index', compact('clients'));
     }
 
