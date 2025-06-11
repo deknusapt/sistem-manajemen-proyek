@@ -9,6 +9,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\DocumentationController;
+use App\Http\Controllers\ResetPasswordController;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Http\Request;
 
 // Web Routes
 Route::get('/', function () {
@@ -20,9 +23,13 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Password Reset Routes
-Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
-Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+// Forgot Password Routes
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->middleware('guest')->name('password.email');
+
+// Reset Password Routes
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->middleware('guest')->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->middleware('guest')->name('password.update');
 
 // Middleware for Role-Based Access Control
 Route::middleware(['auth'])->group(function () {
