@@ -27,6 +27,7 @@
                 <div>
                     <label for="sort_by" class="block text-sm font-medium text-gray-700">Sort By</label>
                     <select name="sort_by" id="sort_by" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="">None</option>
                         <option value="material_name" {{ request('sort_by') == 'material_name' ? 'selected' : '' }}>Material Name</option>
                         <option value="quantity" {{ request('sort_by') == 'quantity' ? 'selected' : '' }}>Quantity</option>
                     </select>
