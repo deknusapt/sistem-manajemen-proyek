@@ -25,6 +25,11 @@ class MaterialController extends Controller
             $query->where('material_name', 'like', '%' . $request->search . '%');
         }
 
+        // Sorting berdasarkan nama atau quantity
+        if ($request->has('sort_by') && $request->has('order')) {
+            $query->orderBy($request->sort_by, $request->order);
+        }
+
         // Ambil data dengan pagination
         $materials = $query->paginate(10);
 
