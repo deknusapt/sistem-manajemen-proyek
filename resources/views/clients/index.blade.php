@@ -69,23 +69,25 @@
                             <td class="px-6 py-4">{{ $client->address }}</td>
                             <td class="px-6 py-4">{{ $client->phone_number }}</td>
                             <td class="px-6 py-4">{{ $client->email }}</td>
-                            <td class="px-6 py-4 flex gap-2 justify-center">
-                                <button type="button" 
-                                    class="edit-button text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
-                                    data-client-id="{{ $client->id_client }}"
-                                    data-client-fullname="{{ $client->client_fullname }}"
-                                    data-company="{{ $client->company }}"
-                                    data-position="{{ $client->position }}"
-                                    data-address="{{ $client->address }}"
-                                    data-phone-number="{{ $client->phone_number }}"
-                                    data-email="{{ $client->email }}">
-                                    Edit
-                                </button>
-                                <button type="button" 
-                                    class="delete-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none" 
-                                    data-client-id="{{ $client->id_client }}">
-                                    Delete
-                                </button>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center justify-center gap-2">
+                                    <button type="button" 
+                                        class="edit-button text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
+                                        data-client-id="{{ $client->id_client }}"
+                                        data-client-fullname="{{ $client->client_fullname }}"
+                                        data-company="{{ $client->company }}"
+                                        data-position="{{ $client->position }}"
+                                        data-address="{{ $client->address }}"
+                                        data-phone-number="{{ $client->phone_number }}"
+                                        data-email="{{ $client->email }}">
+                                        Edit
+                                    </button>
+                                    <button type="button" 
+                                        class="delete-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none" 
+                                        data-client-id="{{ $client->id_client }}">
+                                        Delete
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
