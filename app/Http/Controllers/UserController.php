@@ -11,10 +11,30 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Get paginated users
-        $users = User::paginate(10); // 10 users per page
+        // Query dasar
+        $query = User::query();
+
+        // Filter berdasarkan role
+        if ($request->has('role') && $request->role != '') {
+            $query->where('role', $request->role);
+        }
+
+        // Pencarian berdasarkan fullname staff
+        if ($request->has('search') && $request->search != '') {
+            $query->where('fullname', 'like', '%' . $request->search . '%');
+        }
+
+        // Sorting berdasarkan nama
+        if ($request->has('sort_by') && $request->sort_by == 'fullname') {
+            $order = $request->has('order') && $request->order == 'desc' ? 'desc' : 'asc';
+            $query->orderBy('fullname', $order);
+        }
+
+        // Ambil data dengan pagination
+        $users = $query->paginate(10);
+
         return view('users.index', compact('users'));
     }
 
