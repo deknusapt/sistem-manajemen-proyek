@@ -222,6 +222,16 @@
         <!-- Filter dan Pencarian -->
         <div class="mb-4 flex justify-between">
             <form method="GET" action="{{ route('projects.index') }}" class="flex gap-4">
+                <!-- Sorting -->
+                <div>
+                    <label for="sort" class="block text-sm font-medium text-gray-700">Sort By</label>
+                    <select name="sort" id="sort" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="">Default</option>
+                        <option value="name_asc" {{ request('sort') == 'project_name' ? 'selected' : '' }}>Project Name</option>
+                        <option value="client_asc" {{ request('sort') == 'client' ? 'selected' : '' }}>Client</option>
+                    </select>
+                </div>
+
                 <!-- Filter Status -->
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
@@ -243,6 +253,15 @@
                         <option value="today" {{ request('due_date') == 'today' ? 'selected' : '' }}>This Day</option>
                         <option value="this_week" {{ request('due_date') == 'this_week' ? 'selected' : '' }}>This Week</option>
                         <option value="this_month" {{ request('due_date') == 'this_month' ? 'selected' : '' }}>This Month</option>
+                    </select>
+                </div>
+
+                <!-- Filter Order -->
+                <div>
+                    <label for="order" class="block text-sm font-medium text-gray-700">Order</label>
+                    <select name="order" id="order" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="asc" {{ request('order') == 'asc' ? 'selected' : '' }}>A - Z</option>
+                        <option value="desc" {{ request('order') == 'desc' ? 'selected' : '' }}>Z - A</option>
                     </select>
                 </div>
 

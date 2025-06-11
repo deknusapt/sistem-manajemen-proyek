@@ -4,10 +4,47 @@
     <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Clients</h1>
 
-        <div class="mb-4">
+        <div class="mb-8">
             <a href="#" data-modal-target="createClientModal" data-modal-toggle="createClientModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
                 New Client
             </a>
+        </div>
+
+        <div class="mb-4 flex justify-between">
+            <!-- Filter dan Sorting -->
+            <form method="GET" action="{{ route('clients.index') }}" class="flex gap-4">
+                <!-- Sorting -->
+                <div>
+                    <label for="sort_by" class="block text-sm font-medium text-gray-700">Sort By</label>
+                    <select name="sort_by" id="sort_by" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="fullname" {{ request('sort_by') == 'fullname' ? 'selected' : '' }}>Full Name</option>
+                        <option value="company" {{ request('sort_by') == 'company' ? 'selected' : '' }}>Company</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="order" class="block text-sm font-medium text-gray-700">Order</label>
+                    <select name="order" id="order" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="asc" {{ request('order') == 'asc' ? 'selected' : '' }}>A - Z</option>
+                        <option value="desc" {{ request('order') == 'desc' ? 'selected' : '' }}>Z - A</option>
+                    </select>
+                </div>
+
+                <!-- Tombol Submit -->
+                <div class="flex items-end">
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
+                        Filter
+                    </button>
+                </div>
+            </form>
+
+            <!-- Pencarian -->
+            <form method="GET" action="{{ route('clients.index') }}" class="flex items-end">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search clients..." class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                <button type="submit" class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
+                    Search
+                </button>
+            </form>
         </div>
 
         <div class="relative overflow-x-auto sm:rounded-lg">

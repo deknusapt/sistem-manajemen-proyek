@@ -10,8 +10,8 @@
             </a>
         </div>
 
-        <!-- Filter dan Pencarian -->
         <div class="mb-4 flex justify-between">
+            <!-- Filter dan Pencarian -->
             <form method="GET" action="{{ route('materials.index') }}" class="flex gap-4">
                 <!-- Filter Availability -->
                 <div>
@@ -20,6 +20,23 @@
                         <option value="">All</option>
                         <option value="Available" {{ request('availability') == 'Available' ? 'selected' : '' }}>Available</option>
                         <option value="OutofStock" {{ request('availability') == 'OutofStock' ? 'selected' : '' }}>Out of Stock</option>
+                    </select>
+                </div>
+
+                <!-- Sorting -->
+                <div>
+                    <label for="sort_by" class="block text-sm font-medium text-gray-700">Sort By</label>
+                    <select name="sort_by" id="sort_by" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="material_name" {{ request('sort_by') == 'material_name' ? 'selected' : '' }}>Material Name</option>
+                        <option value="quantity" {{ request('sort_by') == 'quantity' ? 'selected' : '' }}>Quantity</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="order" class="block text-sm font-medium text-gray-700">Order</label>
+                    <select name="order" id="order" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                        <option value="asc" {{ request('order') == 'asc' ? 'selected' : '' }}>A - Z</option>
+                        <option value="desc" {{ request('order') == 'desc' ? 'selected' : '' }}>Z - A</option>
                     </select>
                 </div>
 
