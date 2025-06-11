@@ -1,8 +1,8 @@
 <p align="center"><a href="#" target="_blank"><img src="/public/magnum-text.png" width="400" alt="Project Logo"></a></p>
 
-## Tentang Sistem Manajemen Proyek
+## Tentang
 
-Sistem Manajemen Proyek adalah aplikasi berbasis web yang dirancang untuk membantu perusahaan atau organisasi dalam mengelola proyek mereka secara efisien. Sistem ini memungkinkan pengguna untuk melacak status proyek, mengelola sumber daya, dan memantau ketersediaan material yang diperlukan untuk menyelesaikan proyek.
+Sistem Manajemen Proyek adalah aplikasi berbasis web yang dirancang untuk membantu perusahaan atau organisasi khususnya di CV. Magnum Solusion yang menjadi studi kasus dalam mengelola proyek mereka secara efisien. Sistem ini memungkinkan pengguna untuk melacak status proyek, mengelola sumber daya, dan memantau ketersediaan material yang diperlukan untuk menyelesaikan proyek.
 
 Tujuan utama dari sistem ini adalah untuk meningkatkan produktivitas, mengurangi kesalahan dalam pengelolaan proyek, dan memberikan visibilitas yang lebih baik terhadap progres proyek.
 
@@ -20,9 +20,8 @@ Tujuan utama dari sistem ini adalah untuk meningkatkan produktivitas, mengurangi
 
 ## Role yang Ada
 
-- **Admin**: Memiliki akses penuh untuk mengelola proyek, material, dan pengguna.
+- **Project Engineer**: Memiliki akses penuh untuk mengelola proyek, material, dan pengguna.
 - **Engineer**: Bertanggung jawab untuk melacak progres proyek dan memastikan material tersedia.
-- **Client**: Dapat melihat status proyek yang terkait dengan mereka.
 
 ---
 
