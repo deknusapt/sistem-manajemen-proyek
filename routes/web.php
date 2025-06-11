@@ -10,6 +10,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('materials', MaterialController::class);
         Route::resource('clients', ClientController::class);
         Route::resource('users', UserController::class);
+        Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     });
 
     Route::middleware(['auth', 'check.role:ProjectManager,Engineer'])->group(function () {
