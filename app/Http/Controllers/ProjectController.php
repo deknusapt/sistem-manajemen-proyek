@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Material;
 use Illuminate\Http\Request;
+use App\Mail\ProjectAssignedMail;
+use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -107,6 +109,9 @@ class ProjectController extends Controller
         if ($request->has('materials')) {
             $project->materials()->sync($request->materials);
         }
+
+        // Kirim email ke Engineer
+        Mail::to($project->user->email)->send(new ProjectAssignedMail($project));
 
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('projects.index')->with('success', 'Project added successfully.');
