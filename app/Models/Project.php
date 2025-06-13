@@ -35,9 +35,9 @@ class Project extends Model
     }
 
     // Project has many materials
-    public function materials(): BelongsTo
+    public function materials()
     {
-        return $this->belongsTo(Material::class, 'project_materials', 'id_project','id_material')->withPivot('quantity');
+        return $this->belongsToMany(Material::class, 'project_materials', 'id_project', 'id_material')->withPivot('quantity');
     }
 
     // Project has many documentations
