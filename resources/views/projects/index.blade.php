@@ -315,7 +315,9 @@
                         <th scope="col" class="px-6 py-3 text-center">Start Date</th>
                         <th scope="col" class="px-6 py-3 text-center">End Date</th>
                         <th scope="col" class="px-6 py-3 text-center">Status</th>
+                        @if (auth()->user()->role !== 'Engineer')
                         <th scope="col" class="px-6 py-3 text-center">Actions</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -342,30 +344,30 @@
                                     <span class="bg-green-500 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Completed</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 flex gap-2 justify-center">
-                                <button type="button" 
-                                    class="edit-button text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
-                                    data-project-id="{{ $project->id_project }}"
-                                    data-project-name="{{ $project->project_name }}"
-                                    data-client-id="{{ $project->id_client }}"
-                                    data-start-date="{{ $project->start_date }}"
-                                    data-end-date="{{ $project->end_date }}"
-                                    data-complexity="{{ $project->complexity }}"
-                                    data-user-id="{{ $project->id_user }}"
-                                    data-status="{{ $project->status }}"
-                                    data-cost="{{ $project->cost }}"
-                                    data-description="{{ $project->description }}">
-                                    Edit
-                                </button>
+                            @if (auth()->user()->role !== 'Engineer')
+                                <td class="px-6 py-4 flex gap-2 justify-center">
+                                    <button type="button" 
+                                        class="edit-button text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
+                                        data-project-id="{{ $project->id_project }}"
+                                        data-project-name="{{ $project->project_name }}"
+                                        data-client-id="{{ $project->id_client }}"
+                                        data-start-date="{{ $project->start_date }}"
+                                        data-end-date="{{ $project->end_date }}"
+                                        data-complexity="{{ $project->complexity }}"
+                                        data-user-id="{{ $project->id_user }}"
+                                        data-status="{{ $project->status }}"
+                                        data-cost="{{ $project->cost }}"
+                                        data-description="{{ $project->description }}">
+                                        Edit
+                                    </button>
 
-                                @if (auth()->user()->role !== 'Engineer')
                                     <button type="button" 
                                         class="delete-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none" 
                                         data-project-id="{{ $project->id_project }}">
                                         Delete
                                     </button>
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

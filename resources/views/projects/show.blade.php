@@ -60,6 +60,44 @@
             <a href="{{ route('projects.documentations', $project->id_project) }}" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
                 Documentations
             </a>
+            @if (auth()->user()->role === 'Engineer')
+                <button type="button" data-modal-target="updateStatusModal" data-modal-toggle="updateStatusModal" class="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                    Update Status
+                </button>
+            @endif
+        </div>
+    </div>
+
+    <!-- Modal Update Status -->
+    <div id="updateStatusModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+        <div class="relative w-full max-w-md max-h-full mx-auto">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="flex items-start justify-between p-4 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Update Project Status
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <form method="POST" action="{{ route('projects.updateStatus', $project->id_project) }}">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-4">
+                            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                            <select name="status" id="status" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                                <option value="notstarted" {{ $project->status === 'notstarted' ? 'selected' : '' }}>Not Started</option>
+                                <option value="onprogress" {{ $project->status === 'onprogress' ? 'selected' : '' }}>On Progress</option>
+                                <option value="pending" {{ $project->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="canceled" {{ $project->status === 'canceled' ? 'selected' : '' }}>Canceled</option>
+                                <option value="completed" {{ $project->status === 'completed' ? 'selected' : '' }}>Completed</option>
+                            </select>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-5 py-2.5 mr-2 focus:outline-none" data-modal-hide="updateStatusModal">Cancel</button>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 focus:outline-none">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
