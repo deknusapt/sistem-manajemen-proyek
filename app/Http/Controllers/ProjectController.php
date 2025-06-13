@@ -88,8 +88,8 @@ class ProjectController extends Controller
             'file_workorder' => 'required|file|mimes:pdf,doc,docx|max:2048', // File harus berupa PDF atau DOC
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'id_client' => 'required|exists:clients,id_client', // Perbaiki kolom di sini
-            'id_user' => 'required|exists:users,id_user', // Validasi untuk PIC
+            'id_client' => 'required|exists:clients,id_client',
+            'id_user' => 'required|exists:users,id_user',
         ]);
 
         // Simpan file workorder
