@@ -62,4 +62,5 @@ Route::middleware(['auth'])->group(function () {
     // Route untuk menghapus proyek
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+    Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('projects.updateStatus');
 });
