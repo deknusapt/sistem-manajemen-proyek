@@ -89,6 +89,17 @@
                                 <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                                 <textarea name="description" id="description" rows="4" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter project description"></textarea>
                             </div>
+                            <div class="mb-4">
+                                <label for="materials" class="block text-sm font-medium text-gray-700">Materials</label>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    @foreach ($materials as $material)
+                                        <div class="flex items-center">
+                                            <input type="checkbox" name="materials[]" id="material_{{ $material->id_material }}" value="{{ $material->id_material }}" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                            <label for="material_{{ $material->id_material }}" class="ml-2 text-sm text-gray-700">{{ $material->material_name }} ({{ $material->quantity }} available)</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                             <div class="flex justify-end mt-6">
                                 <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-5 py-2.5 mr-2 focus:outline-none" data-modal-hide="createProjectModal">Cancel</button>
                                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 focus:outline-none">Create</button>
@@ -208,6 +219,18 @@
                             <div class="mb-4">
                                 <label for="edit_description" class="block text-sm font-medium text-gray-700">Description</label>
                                 <textarea name="description" id="edit_description" rows="4" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="materials" class="block text-sm font-medium text-gray-700">Materials</label>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    @foreach ($materials as $material)
+                                        <div class="flex items-center">
+                                            <input type="checkbox" name="materials[]" id="material_{{ $material->id_material }}" value="{{ $material->id_material }}" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                                {{ isset($selectedMaterials) && in_array($material->id_material, $selectedMaterials) ? 'checked' : '' }}>
+                                            <label for="material_{{ $material->id_material }}" class="ml-2 text-sm text-gray-700">{{ $material->material_name }} ({{ $material->quantity }} available)</label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="flex justify-end mt-6">
                                 <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-5 py-2.5 mr-2 focus:outline-none" data-modal-hide="editProjectModal">Cancel</button>

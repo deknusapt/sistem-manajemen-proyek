@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-4">Project Details</h1>
+        <h1 class="text-2xl font-bold mb-4">{{ $project->project_name }}</h1>
 
         <div class="bg-white shadow rounded-lg p-6">
-            <h2 class="text-xl font-semibold mb-4">{{ $project->project_name }}</h2>
+            <h2 class="text-xl font-semibold mb-4">Project Details</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <p><strong>Client:</strong> {{ $project->client->client_fullname }}</p>
@@ -38,6 +38,19 @@
             <div class="mt-6">
                 <a href="{{ asset('storage/' . $project->file_workorder) }}" target="_blank" class="text-blue-600 hover:underline">Download Workorder</a>
             </div>
+        </div>
+
+        <div class="mt-6">
+            <h3 class="text-lg font-medium text-gray-700">Materials</h3>
+            @if ($materials->isEmpty())
+                <p class="text-sm text-gray-500">No materials selected.</p>
+            @else
+                <ul class="list-disc pl-5">
+                    @foreach ($materials as $material)
+                        <li class="text-sm text-gray-700">{{ $material->material_name }} ({{ $material->quantity }} available)</li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
 
         <div class="mt-6 flex gap-4">
