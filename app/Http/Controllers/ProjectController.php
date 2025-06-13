@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -16,6 +17,7 @@ class ProjectController extends Controller
     {
         $clients = Client::all();
         $engineers = User::where('role', 'Engineer')->get();
+        $materials = Material::all(); // Ambil semua material dari database
 
         // Query dasar
         $query = Project::with('client');
@@ -58,7 +60,7 @@ class ProjectController extends Controller
         // Ambil data dengan pagination
         $projects = $query->paginate(10);
 
-        return view('projects.index', compact('clients', 'engineers', 'projects'));
+        return view('projects.index', compact('clients', 'engineers', 'materials', 'projects'));
     }
 
     /**
@@ -68,9 +70,10 @@ class ProjectController extends Controller
     {
         // Get all clients and users
         $clients = Client::all();
-        $users = User::where('role', 'ProjectManager')->get();
+        $engineers = User::where('role', 'Engineer')->get();
+        $materials = Material::all(); // Ambil semua material dari database
 
-        return view('projects.create', compact('clients', 'users'));
+        return view('projects.create', compact('clients', 'engineers', 'materials'));
     }
 
     /**
@@ -85,11 +88,13 @@ class ProjectController extends Controller
             'complexity' => 'required|in:low,medium,high',
             'status' => 'required|in:notstarted,onprogress,pending,canceled,completed',
             'description' => 'required|string',
-            'file_workorder' => 'required|file|mimes:pdf,doc,docx|max:2048', // File harus berupa PDF atau DOC
+            'file_workorder' => 'required|file|mimes:pdf,doc,docx|max:2048',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'id_client' => 'required|exists:clients,id_client',
             'id_user' => 'required|exists:users,id_user',
+            'materials' => 'nullable|array',
+            'materials.*' => 'exists:materials,id_material',
         ]);
 
         // Simpan file workorder
@@ -98,10 +103,9 @@ class ProjectController extends Controller
 
         // Simpan data ke database
         $project = Project::create($data);
-        // dd($project);
 
-        if (!$project) {
-            return redirect()->back()->with('error', 'Failed to save project.');
+        if ($request->has('materials')) {
+            $project->materials()->sync($request->materials);
         }
 
         // Redirect ke halaman index dengan pesan sukses
@@ -113,8 +117,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        // Get all clients and users
-        return view('projects.show', compact('project'));
+        $materials = $project->materials; // Ambil material yang terkait dengan proyek
+
+        return view('projects.show', compact('project', 'materials'));
     }
 
     /**
@@ -124,9 +129,11 @@ class ProjectController extends Controller
     {
         // Get all clients and users
         $clients = Client::all();
-        $users = User::where('role', 'ProjectManager')->get();
+        $engineers = User::where('role', 'Engineer')->get();
+        $materials = Material::all();
+        $selectedMaterials = $project->materials->pluck('id_material')->toArray(); // Ambil material yang sudah dipilih
 
-        return view('projects.edit', compact('project', 'clients', 'users'));
+        return view('projects.edit', compact('project', 'clients', 'engineers', 'materials', 'selectedMaterials'));
     }
 
     /**
@@ -134,10 +141,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        // Validate the request
-        $request->validate([
-            'id_client' => 'required|exists:clients,id_client', // Perbaiki kolom di sini
-            'id_user' => 'required|exists:users,id_user', // Validasi untuk PIC
+        $data = $request->validate([
             'project_name' => 'required|string|max:255',
             'cost' => 'required|numeric',
             'complexity' => 'required|in:low,medium,high',
@@ -145,10 +149,19 @@ class ProjectController extends Controller
             'description' => 'required|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
+            'id_client' => 'required|exists:clients,id_client',
+            'id_user' => 'required|exists:users,id_user',
+            'materials' => 'nullable|array',
+            'materials.*' => 'exists:materials,id_material',
         ]);
 
-        // Update the project
-        $project->update($request->all());
+        $project->update($data);
+
+        if ($request->has('materials')) {
+            $project->materials()->sync($request->materials);
+        } else {
+            $project->materials()->detach(); // Hapus semua material jika tidak ada yang dipilih
+        }
 
         return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
     }
