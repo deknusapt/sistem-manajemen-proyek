@@ -181,4 +181,23 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index')->with('success', 'Project deleted successfully.');
     }
+
+    /**
+     * Update the status of the specified resource.
+     */
+    public function updateStatus(Request $request, Project $project)
+    {
+        $data = $request->validate([
+            'status' => 'required|in:notstarted,onprogress,pending,canceled,completed',
+        ]);
+
+        // Update status proyek
+        $project->update(['status' => $data['status']]);
+
+        // Kirim email ke ProjectManager
+        $projectManager = User::where('role', 'ProjectManager')->first();
+        Mail::to($projectManager->email)->send(new \App\Mail\StatusUpdatedMail($project));
+
+        return redirect()->route('projects.show', $project->id_project)->with('success', 'Status updated successfully.');
+    }
 }
