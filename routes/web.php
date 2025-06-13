@@ -45,6 +45,15 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth', 'check.role:ProjectManager,Engineer'])->group(function () {
         Route::resource('projects', ProjectController::class);
         Route::resource('materials', MaterialController::class);
+        
+        // Route untuk Documentations
+        Route::get('/projects/{project}/documentations', [DocumentationController::class, 'index'])->name('projects.documentations');
+        Route::get('/projects/{project}/documentations/create', [DocumentationController::class, 'create'])->name('documentations.create');
+        Route::post('/documentations', [DocumentationController::class, 'store'])->name('documentations.store');
+        Route::get('/documentations/{documentation}/edit', [DocumentationController::class, 'edit'])->name('documentations.edit');
+        Route::put('/documentations/{documentation}', [DocumentationController::class, 'update'])->name('documentations.update');
+        Route::delete('/documentations/{documentation}', [DocumentationController::class, 'destroy'])->name('documentations.destroy');
+        Route::get('/documentations/{documentation}', [DocumentationController::class, 'show'])->name('documentations.show');
     });
 
     // Route untuk menampilkan daftar proyek
@@ -53,5 +62,4 @@ Route::middleware(['auth'])->group(function () {
     // Route untuk menghapus proyek
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
-    Route::get('/projects/{project}/documentations', [DocumentationController::class, 'index'])->name('projects.documentations');
 });
